@@ -11,6 +11,7 @@ import ViewLoading from './components/ViewLoading';
 import {
   ACTIVITY_TYPE_CYCLING,
   METRIC_DISTANCE,
+  METRIC_ELEVATION,
   CYCLING_METRICS,
   RUNNING_METRICS,
   MAP_METRIC_LABEL,
@@ -104,6 +105,6 @@ const styles = StyleSheet.create({
     width: 250,
   },
   timeFramePicker: {
-    width: 90
+    width: 90,
   },
 });

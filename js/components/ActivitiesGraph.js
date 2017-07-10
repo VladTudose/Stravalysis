@@ -51,8 +51,8 @@ export default class ActivitiesGraph extends Component {
   }
 
   yAccessor(activitiesInDay) {
-    var sum = 0;
-    for (var i = 0; i < activitiesInDay[1].length; i++) {
+    let sum = 0;
+    for (let i = 0; i < activitiesInDay[1].length; i++) {
       sum += activitiesInDay[1][i][this.props.respondingComponent.props.metric];
     }
     return sum;

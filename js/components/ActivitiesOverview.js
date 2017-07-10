@@ -6,28 +6,31 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import ActivitiesGraph from './ActivitiesGraph';
+import ActivitiesGraph2 from './ActivitiesGraph2';
 import DayView from './DayView';
 import ViewLoading from './ViewLoading';
 import {
   ACTIVITY_TYPE_CYCLING,
   ACTIVITY_TYPE_RUNNING,
-  CYCLING_METRICS,
+  RUNNING_METRICS,
+  SECONDS_IN_DAY,
   TIME_FRAME_DAYS,
 } from '../utils/consts';
 
-const SECONDS_IN_DAY = 86400;
-const PARTIAL_GET_STRAVA_ACTIVITIES_URL = 'https://www.strava.com/api/v3/athlete/activities';
+const PARTIAL_GET_ACTIVITIES_URL = 'https://zomer-tech.com/stravalysis/backend/get_activities.php';
+// const PARTIAL_GET_ACTIVITIES_URL = 'https://www.strava.com/api/v3/athlete/activities?per_page=200';
+// const PARTIAL_GET_ACTIVITIES_URL = 'https://www.strava.com/api/v3/athlete/activities?per_page=200';
 
 export default class ActivitiesOverview extends Component {
   constructor(props) {
     super(props);
     this.state = {isLoading: true, isLandscape: this.isLandscape()};
-    this.getActivitiesByDay();
+    this.getActivities(this.props);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     this.state.isLoading = true;
-    this.getActivitiesByDay();
+    this.getActivities(nextProps);
   }
 
   isLandscape() {
@@ -35,24 +38,20 @@ export default class ActivitiesOverview extends Component {
     return height < width;
   }
 
-  async getActivitiesByDay() {
-    let after = Math.floor(new Date() / 1000 - SECONDS_IN_DAY * this.props.days);
-    let url = PARTIAL_GET_STRAVA_ACTIVITIES_URL +
-      `?access_token=${this.props.stravaAccessToken}&after=${after}`;
+  async getActivities(props) {
+    let now = new Date();
+    let dayBegin = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let after = Math.floor(dayBegin / 1000 - SECONDS_IN_DAY * (props.days - 1));
+    this.state.after = after;
+    let url = PARTIAL_GET_ACTIVITIES_URL + '?access_token=' + props.stravaAccessToken +
+              '&substract_days=' + props.days;
+    console.log(`get activities url: ${url}`);
     let response = await fetch(url);
     let activities = (await response.json()).filter(activity =>
-      activity.type === this.props.activityType && activity[this.props.metric] != null);
-    let activitiesByDay = [];
-    for (var i = 0; i < this.props.days; i++) {
-      activitiesByDay.push([i, []]);
-    }
-    activities.forEach((activity) => {
-      let dayIndex = Math.floor((new Date(activity.start_date) / 1000 - after) / SECONDS_IN_DAY);
-      activitiesByDay[dayIndex][1].push(activity);
-    });
+      activity.type === props.activityType && activity[props.metric] != null);
 
     this.state.isLoading = false;
-    this.state.activitiesByDay = activitiesByDay;
+    this.state.activities = activities;
     this.state.selectedDay = 0;
     this.setState(this.state);
   }
@@ -74,8 +73,10 @@ export default class ActivitiesOverview extends Component {
       <View
         onLayout={this.onLayout.bind(this)}
         style={[styles.container, this.state.isLandscape ? styles.containerLandscape : {}]}>
-        <ActivitiesGraph respondingComponent={this}/>
-        <DayView respondingComponent={this}/>
+        <View style={{flex: 3}}>
+          <ActivitiesGraph2 respondingComponent={this}/>
+        </View>
+        <View style={{flex: 0, backgroundColor: 'blue'}}/>
       </View>
     );
   }
@@ -84,7 +85,7 @@ export default class ActivitiesOverview extends Component {
 ActivitiesOverview.propTypes = {
   stravaAccessToken: PropTypes.string.isRequired,
   activityType: PropTypes.oneOf([ACTIVITY_TYPE_CYCLING, ACTIVITY_TYPE_RUNNING]).isRequired,
-  metric: PropTypes.oneOf(CYCLING_METRICS).isRequired,
+  metric: PropTypes.oneOf(RUNNING_METRICS).isRequired,
   days: PropTypes.oneOf(TIME_FRAME_DAYS).isRequired,
 };
 

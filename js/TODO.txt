@@ -1,1 +1,2 @@
 * refactor to remove duplicate code (modal, etc.)
+* take time zone of the activity into consideration
