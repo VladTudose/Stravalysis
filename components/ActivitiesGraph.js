@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  ART,
   Dimensions,
   StyleSheet,
   View,
@@ -13,12 +12,6 @@ import {
   ACTIVITY_TYPE_RUNNING,
   MAP_METRIC_LABEL,
 } from '../utils/consts';
-
-const {
-  Group,
-  Shape,
-  Surface,
-} = ART;
 
 const uri = 'https://facebook.github.io/react-native/docs/getting-started.html';
 
@@ -67,7 +60,7 @@ export default class ActivitiesGraph2 extends Component {
     }
 
     var ctx = document.getElementById("myChart");
-    var myChart = buildChartHelper(activities, days, metric);
+    var myChart = buildChartHelper(activities, days, metric, 1);
 
     ctx.onclick = function (evt) {
       window.postMessage('SMC', '*');
@@ -86,11 +79,20 @@ export default class ActivitiesGraph2 extends Component {
 <header>
 </header>
 <body>
-<canvas id="myChart"></canvas>
+<div id="parentMyChart">
+  <canvas id="myChart"></canvas>
+</div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 <script src="https://zomer-tech.com/stravalysis/js/chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-sanitize.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>${jsCode}</script>
 </html>`;
   }
@@ -100,12 +102,16 @@ export default class ActivitiesGraph2 extends Component {
   }
 
   render() {
-    // console.log(`chart HTML: ${this.getChartHtml()}`);
+    console.log(`chart HTML: ${this.getChartHtml()}`);
     return (
+      // <WebView
+      //   source={{html: this.getChartHtml()}}
+      //   onMessage={this.respondMessage}
+      //   injectedJavaScript={`(${String(patchPostMessage)})();`} />
       <WebView
         source={{html: this.getChartHtml()}}
         onMessage={this.respondMessage}
-        injectedJavaScript={`(${String(patchPostMessage)})();`} />
+        injectedJavaScript={`(${String(patchPostMessage)})();`}/>
     );
   }
 }

@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import ActivitiesGraph from './ActivitiesGraph';
-import ActivitiesGraph2 from './ActivitiesGraph2';
 import DayView from './DayView';
 import ViewLoading from './ViewLoading';
 import {
@@ -65,7 +64,6 @@ export default class ActivitiesOverview extends Component {
   }
 
   render() {
-    console.log('render ActivitiesOverview');
     if (this.state.isLoading) {
       return <ViewLoading/>;
     }
@@ -74,7 +72,7 @@ export default class ActivitiesOverview extends Component {
         onLayout={this.onLayout.bind(this)}
         style={[styles.container, this.state.isLandscape ? styles.containerLandscape : {}]}>
         <View style={{flex: 3}}>
-          <ActivitiesGraph2 respondingComponent={this}/>
+          <ActivitiesGraph respondingComponent={this}/>
         </View>
         <View style={{flex: 0, backgroundColor: 'blue'}}/>
       </View>

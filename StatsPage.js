@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Picker, StyleSheet, Text, View } from 'react-native';
 import Button from 'react-native-button';
 import Modal from 'react-native-modalbox';
-import Cookie from 'react-native-cookie';
 import PropTypes from 'prop-types';
 import ConnectPage from './ConnectPage';
 import ActivitiesOverview from './components/ActivitiesOverview';
@@ -18,7 +17,7 @@ import {
   TIME_FRAME_DAYS,
 } from './utils/consts';
 
-const STRAVA_URL = 'https://www.strava.com';
+// const STRAVA_URL = 'https://www.strava.com';
 
 export default class StatsPage extends Component {
   state = {
@@ -31,12 +30,11 @@ export default class StatsPage extends Component {
 
   async logout() {
     this.setState({isLoading: true});
-    await Promise.all(stravaAccessTokenStorage.remove(), Cookie.clear(STRAVA_URL));
+    await stravaAccessTokenStorage.remove();
     this.setState({isLoggedOut: true});
   }
 
   render() {
-    console.log('StatsPage render');
     if (this.state.isLoggedOut) {
       return <ConnectPage/>;
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import {
   ACTIVITY_TYPE_CYCLING,
@@ -42,13 +42,13 @@ export default class StatsMenu extends Component {
         </View>
         
         <Button onPress={() => this.setActivityType(ACTIVITY_TYPE_CYCLING)}>
-          <Icon
+          <MaterialIcons
             name='directions-bike'
             size={ICONS_SIZE}
             style={activityType === ACTIVITY_TYPE_CYCLING ? {} : styles.transparent}/>
         </Button>
         <Button onPress={() => this.setActivityType(ACTIVITY_TYPE_RUNNING)}>
-          <Icon
+          <MaterialIcons
             name='directions-run'
             size={ICONS_SIZE}
             style={activityType === ACTIVITY_TYPE_RUNNING ? {} : styles.transparent}/>

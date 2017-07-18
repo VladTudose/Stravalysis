@@ -1,4 +1,22 @@
 {
-  "name": "Stravalysis",
-  "displayName": "Stravalysis"
+  "expo": {
+    "name": "stravalysis",
+    "description": "No description",
+    "slug": "stravalysis",
+    "privacy": "unlisted",
+    "sdkVersion": "18.0.0",
+    "version": "1.0.0",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icons/app-icon.png",
+    "loading": {
+      "icon": "./assets/icons/loading-icon.png",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
 }
