@@ -47,7 +47,7 @@ export default class ActivitiesOverview extends Component {
     console.log(`get activities url: ${url}`);
     let response = await fetch(url);
     let activities = (await response.json()).filter(activity =>
-      activity.type === props.activityType && activity[props.metric] != null);
+      activity.type === props.activityType);
 
     this.state.isLoading = false;
     this.state.activities = activities;
