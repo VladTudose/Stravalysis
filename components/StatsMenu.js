@@ -9,7 +9,7 @@ import {
   MAP_METRIC_LABEL,
 } from '../utils/consts';
 
-const ICONS_SIZE = 30;
+const ICONS_SIZE = 50;
 
 export default class StatsMenu extends Component {
   setActivityType(activityType) {
@@ -73,7 +73,7 @@ StatsMenu.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    height: 30,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -97,12 +97,12 @@ const styles = StyleSheet.create({
     marginRight: 3
   },
   button: {
-    padding: 3,
-    fontSize: 8,
+    padding: 6,
+    fontSize: 16,
   },
   logoutButton: {
     color: 'black',
-    fontSize: 12,
+    fontSize: 16,
   },
   transparent: {
     opacity: 0.5,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Picker, StyleSheet, Text, View } from 'react-native';
+import { Platform, PickerIOS, StyleSheet, Text, View } from 'react-native';
 import Button from 'react-native-button';
 import Modal from 'react-native-modalbox';
 import PropTypes from 'prop-types';
@@ -7,6 +7,8 @@ import ConnectPage from './ConnectPage';
 import ActivitiesOverview from './components/ActivitiesOverview';
 import StatsMenu from './components/StatsMenu';
 import ViewLoading from './components/ViewLoading';
+import PickerAndroid from 'react-native-picker-android';
+
 import {
   ACTIVITY_TYPE_CYCLING,
   METRIC_DISTANCE,
@@ -18,6 +20,8 @@ import {
 } from './utils/consts';
 
 // const STRAVA_URL = 'https://www.strava.com';
+
+let Picker = Platform.OS === 'ios' ? PickerIOS : PickerAndroid;
 
 export default class StatsPage extends Component {
   state = {
@@ -58,6 +62,7 @@ export default class StatsPage extends Component {
           activityType={this.state.activityType}
           metric={this.state.metric}
           days={this.state.days}/>
+
         <Modal style={styles.modal} position='center' ref='metricModal'>
           <Picker
             style={styles.metricPicker}
