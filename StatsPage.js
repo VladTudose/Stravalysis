@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, PickerIOS, StyleSheet, Text, View } from 'react-native';
+import RCTNetworking from 'RCTNetworking';
 import Button from 'react-native-button';
 import Modal from 'react-native-modalbox';
 import PropTypes from 'prop-types';
@@ -35,7 +36,9 @@ export default class StatsPage extends Component {
   async logout() {
     this.setState({isLoading: true});
     await stravaAccessTokenStorage.remove();
-    this.setState({isLoggedOut: true});
+    RCTNetworking.clearCookies((cleared) => {
+      this.setState({isLoggedOut: true});
+    });
   }
 
   render() {

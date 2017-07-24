@@ -18,7 +18,6 @@ import {
 
 const PARTIAL_GET_ACTIVITIES_URL = 'https://zomer-tech.com/stravalysis/backend/get_activities.php';
 // const PARTIAL_GET_ACTIVITIES_URL = 'https://www.strava.com/api/v3/athlete/activities?per_page=200';
-// const PARTIAL_GET_ACTIVITIES_URL = 'https://www.strava.com/api/v3/athlete/activities?per_page=200';
 
 export default class ActivitiesOverview extends Component {
   constructor(props) {

@@ -102,12 +102,7 @@ export default class ActivitiesGraph2 extends Component {
   }
 
   render() {
-    console.log(`chart HTML: ${this.getChartHtml()}`);
     return (
-      // <WebView
-      //   source={{html: this.getChartHtml()}}
-      //   onMessage={this.respondMessage}
-      //   injectedJavaScript={`(${String(patchPostMessage)})();`} />
       <WebView
         source={{html: this.getChartHtml()}}
         onMessage={this.respondMessage}
