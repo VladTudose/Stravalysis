@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
 import StravaAuthorizePage from './StravaAuthorizePage';
-import commonStyles from './utils/commonStyles';
+import commonStyles from '../utils/commonStyles';
 
 export default class ConnectPage extends Component {
   state = {connectButtonPressed: false};

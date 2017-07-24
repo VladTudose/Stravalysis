@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { WebView, KeyboardAvoidingView } from 'react-native';
 import parse from 'url-parse';
 import StatsPage from './StatsPage';
-import ViewLoading from './components/ViewLoading'
-import stravaAccessTokenStorage from './utils/stravaAccessTokenStorage';
+import ViewLoading from '../components/ViewLoading'
+import stravaAccessTokenStorage from '../utils/stravaAccessTokenStorage';
 
 const STRAVALYSIS_STRAVA_CLIENT_ID = 18173;
 const STRAVALYSIS_STRAVA_CLIENT_SECRET = '532a8341866f0855a49bd72de029c4e74f4f2b7b';

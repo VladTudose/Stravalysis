@@ -4,11 +4,11 @@ import RCTNetworking from 'RCTNetworking';
 import Button from 'react-native-button';
 import Modal from 'react-native-modalbox';
 import PropTypes from 'prop-types';
-import ConnectPage from './ConnectPage';
-import ActivitiesOverview from './components/ActivitiesOverview';
-import StatsMenu from './components/StatsMenu';
-import ViewLoading from './components/ViewLoading';
 import PickerAndroid from 'react-native-picker-android';
+import ConnectPage from './ConnectPage';
+import ActivitiesOverview from '../components/ActivitiesOverview';
+import StatsMenu from '../components/StatsMenu';
+import ViewLoading from '../components/ViewLoading';
 
 import {
   ACTIVITY_TYPE_CYCLING,
@@ -18,7 +18,7 @@ import {
   RUNNING_METRICS,
   MAP_METRIC_LABEL,
   TIME_FRAME_DAYS,
-} from './utils/consts';
+} from '../utils/consts';
 
 // const STRAVA_URL = 'https://www.strava.com';
 
