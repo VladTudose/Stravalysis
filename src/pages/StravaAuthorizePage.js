@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebView, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, Platform, WebView } from 'react-native';
 import parse from 'url-parse';
 import StatsPage from './StatsPage';
 import ViewLoading from '../components/ViewLoading'
@@ -41,16 +41,24 @@ export default class StravaAuthorizePage extends Component {
 
   render() {
     let stravaAccessToken = this.state.stravaAccessToken;
+    let webview = (
+      <WebView
+        source={{uri: STRAVA_AUTHORIZE_URL}}
+        onNavigationStateChange={this.onNavigationStateChange.bind(this)}/>
+    );
+    let view = null;
+    if (Platform.OS === 'ios') {
+      view = webview;
+    } else {
+      view = (
+        <KeyboardAvoidingView style={{flex: 1}} behavior='position' contentContainerStyle={{flex: 1}}>
+          {webview}
+        </KeyboardAvoidingView>
+      );
+    }
     if (stravaAccessToken != null) {
       return <StatsPage stravaAccessToken={stravaAccessToken}/>;
     }
-    return (this.state.isLoading ?
-      <ViewLoading/> :
-      <KeyboardAvoidingView style={{flex: 1}} behavior='position' contentContainerStyle={{flex: 1}}>
-        <WebView
-          source={{uri: STRAVA_AUTHORIZE_URL}}
-          onNavigationStateChange={this.onNavigationStateChange.bind(this)}/>
-      </KeyboardAvoidingView>
-    );
+    return this.state.isLoading ? <ViewLoading/> : view;
   }
 }
