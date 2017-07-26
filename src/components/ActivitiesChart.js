@@ -26,7 +26,12 @@ function patchPostMessage() {
   window.postMessage = patchedPostMessage;
 };
 
-export default class ActivitiesGraph2 extends Component {
+export default class ActivitiesChart extends Component {
+  isLandscape() {
+    let {height, width} = Dimensions.get('window');
+    return height < width;
+  }
+
   doJsStuff(activities, days, metric) {
     var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
 
@@ -60,7 +65,7 @@ export default class ActivitiesGraph2 extends Component {
     }
 
     var ctx = document.getElementById("myChart");
-    var myChart = buildChartHelper(activities, days, metric, 1);
+    var myChart = buildChartHelper(activities, days, metric, 3);
 
     ctx.onclick = function (evt) {
       window.postMessage('SMC', '*');
@@ -79,6 +84,7 @@ export default class ActivitiesGraph2 extends Component {
 <header>
 </header>
 <body>
+<h1 style="display:none">${this.isLandscape()}</h1>
 <div id="parentMyChart">
   <canvas id="myChart"></canvas>
 </div>
@@ -111,7 +117,7 @@ export default class ActivitiesGraph2 extends Component {
   }
 }
 
-ActivitiesGraph2.propTypes = {
+ActivitiesChart.propTypes = {
   respondingComponent: PropTypes.object.isRequired,
 };
 

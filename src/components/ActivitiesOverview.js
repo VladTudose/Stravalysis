@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import ActivitiesGraph from './ActivitiesGraph';
+import ActivitiesChart from './ActivitiesChart';
 import DayView from './DayView';
 import ViewLoading from './ViewLoading';
 import {
@@ -24,16 +24,32 @@ export default class ActivitiesOverview extends Component {
     super(props);
     this.state = {isLoading: true, isLandscape: this.isLandscape()};
     this.getActivities(this.props);
+    this.handleDimensionsChange = this.handleDimensionsChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.state.isLoading = true;
-    this.getActivities(nextProps);
+  componentWillMount() {
+    Dimensions.addEventListener("change", this.handleDimensionsChange);
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.handleDimensionsChange);
+  }
+
+  handleDimensionsChange() {
+    let isLandscape = this.isLandscape();
+    if (isLandscape != this.state.isLandscape) {
+      this.setState({isLandscape});
+    }
   }
 
   isLandscape() {
     let {height, width} = Dimensions.get('window');
     return height < width;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.state.isLoading = true;
+    this.getActivities(nextProps);
   }
 
   async getActivities(props) {
@@ -54,24 +70,15 @@ export default class ActivitiesOverview extends Component {
     this.setState(this.state);
   }
 
-  onLayout() {
-    let isLandscape = this.isLandscape();
-    if (isLandscape != this.state.isLandscape) {
-      this.state.isLandscape = isLandscape;
-      this.setState(this.state);
-    }
-  }
-
   render() {
     if (this.state.isLoading) {
       return <ViewLoading/>;
     }
     return (
       <View
-        onLayout={this.onLayout.bind(this)}
         style={[styles.container, this.state.isLandscape ? styles.containerLandscape : {}]}>
         <View style={{flex: 3}}>
-          <ActivitiesGraph respondingComponent={this}/>
+          <ActivitiesChart respondingComponent={this}/>
         </View>
         <View style={{flex: 0, backgroundColor: 'blue'}}/>
       </View>
